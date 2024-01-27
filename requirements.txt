@@ -23,7 +23,7 @@ neuro-mf==0.0.5
 boto3==1.26.105
 pandas==2.0.3
 scikit-learn
-numpy
-matplotlib
-
+numpy==1.24.3
+matplotlib==3.7.0
+ipykernel==6.23.1
 -e .
