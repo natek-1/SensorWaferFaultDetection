@@ -3,11 +3,15 @@
 ```
 conda create -p env python=3.8 -y
 ```
-2. Install requirments as setup
+2. Activate enviroment
+```
+conda activate ./env
+```
+3. Install requirments as setup
 ```
 pip install -r requirements.txt
 ```
-3. Run application
+4. Run application
 ```
 python app.py
 ```
