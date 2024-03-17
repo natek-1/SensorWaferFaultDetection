@@ -26,4 +26,13 @@ pip install -r requirements.txt
 python app.py
 ```
 
+🔧 Built with
+- Flask
+- Python 3.8
+- XGBOOST
+- Scikit learn
+- Numpy
+- Matploblib
+- Seabornenv
+
 
