@@ -15,7 +15,7 @@ conda create -p env python=3.8 -y
 ```
 2. Activate enviroment
 ```
-conda activate ./env
+conda activate ./env/
 ```
 3. Install requirments as setup
 ```
