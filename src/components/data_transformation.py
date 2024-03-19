@@ -75,7 +75,30 @@ class DataTransformer():
     
     def initiate_data_transformation(self, data_path):
         try:
-            pass
+
+
+            logging.info("initiating data transformation")
+            raw_df = pd.read_csv(data_path)
+
+            # drop useless columns (feature selection)
+
+            # Create X and y columns
+
+            # resample the values of for X and y
+
+
+            # Transofrom the using the preprocessor 
+
+            # Create trans test split
+
+
+            # Save preprocessed object as designated path in config
+
+            # return X_train, X_test, y_train, y_test
+
+            resampler = SMOTETomek(sampling_strategy="auto", random_state=42)
+            
+
         except Exception as e:
             error = CustomException(e, sys)
             logging.error(error)
