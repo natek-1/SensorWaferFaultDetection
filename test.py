@@ -6,6 +6,7 @@ from src.constants import *
 import os
 import sys
 from src.components.data_ingestion import DataIngestion
+from src.components.data_transformation import DataTransformer
 
 #load_dotenv()
 
@@ -19,4 +20,9 @@ from src.components.data_ingestion import DataIngestion
 #print(import_collection_as_dataframe(MONGO_DATABASE_NAME, MONGO_COLLECTION_NAME).head())
 
 data_ingestion = DataIngestion()
-print(data_ingestion.initial_data_ingestion())
+path = data_ingestion.initial_data_ingestion()
+data_transformer = DataTransformer()
+val = data_transformer.initiate_data_transformation(path)
+print(len(val))
+print(val)
+
