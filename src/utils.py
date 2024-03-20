@@ -3,6 +3,8 @@ import sys
 
 import pickle
 import pandas as pd
+from sklearn.metrics import r2_score
+from sklearn.model_selection import train_test_split
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
@@ -49,8 +51,33 @@ def save_object(file_path, obj):
 
         with open(file_path, "wb") as file:
             pickle.dump(obj, file)
-            
+
     except Exception as e:
         error = CustomException(e, sys)
         logging.error(error)
         raise error
+
+
+def evaluate_models(X_train_full, y_train_full, models: dict):
+    '''
+    function that take in the different models and dataset already split.
+    And test each model to see which one perform
+
+    returns a dictionary with the key as the model name and the value as thier score
+    '''
+
+    X_train, X_val, y_train, y_val = train_test_split(X_train_full, y_train_full, test_size=0.2, random_state=42)
+
+    report = {}
+
+    for model_name, model_obj in models.item():
+        model_obj.fit(X_train, y_train)
+
+        y_val_pred = model_obj.predict(X_val)
+        score = r2_score(y_true=y_val, y_pred=y_val_pred)
+
+        report[model_name] = score
+        
+    return report
+
+
