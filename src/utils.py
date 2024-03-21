@@ -77,7 +77,22 @@ def evaluate_models(X_train_full, y_train_full, models: dict):
         score = r2_score(y_true=y_val, y_pred=y_val_pred)
 
         report[model_name] = score
-        
+
     return report
 
+
+def load_obj(obj_path):
+    '''
+    returns the obj that is saved in the path present in the obj_path parameter
+    '''
+    try:
+        obj = None
+        with open(obj_path) as file:
+            obj = pickle.load(file)
+        return obj
+    except Exception as e:
+        error = CustomException(e, sys)
+        logging.error(error)
+        raise error
+    
 
