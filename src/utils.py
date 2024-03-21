@@ -70,7 +70,7 @@ def evaluate_models(X_train_full, y_train_full, models: dict):
 
     report = {}
 
-    for model_name, model_obj in models.item():
+    for model_name, model_obj in models.items():
         model_obj.fit(X_train, y_train)
 
         y_val_pred = model_obj.predict(X_val)
