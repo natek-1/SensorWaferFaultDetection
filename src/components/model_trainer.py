@@ -17,7 +17,7 @@ from xgboost import XGBClassifier
 from sklearn.metrics import r2_score
 
 
-from src.utils import evaluate_models, load_obj, save_object
+from src.utils import evaluate_models, save_object
 from src.exception import CustomException
 from src.logger import logging
 
@@ -25,22 +25,6 @@ from src.logger import logging
 @dataclass
 class ModelTrainerConfig:
     model_path = os.path.join("artifacts", "model.pkl")
-
-class CustomModel:
-    def __init__(self, preprocessor, model):
-        self.preprocessor = preprocessor
-        self.model = model
-    
-    def predict(self, X):
-        preprocessed_data = self.preprocessor.predict(X)
-
-        return self.trained_model_object.predict(preprocessed_data)
-    
-    def __repr__(self):
-        return f"{type(self.trained_model_object).__name__}()"
-
-    def __str__(self):
-        return f"{type(self.trained_model_object).__name__}()"
 
 
 class ModelTrainer:
@@ -89,14 +73,8 @@ class ModelTrainer:
 
             logging.info(f"testing the model on the full train dataset gives a score of {score}")
 
-            preprocessing_obj = load_obj(preprocessor_path)
 
-            custom_model = CustomModel(
-                preprocessor=preprocessing_obj,
-                model=best_model,
-            )
-
-            save_object(obj=custom_model, file_path=self.model_trainer_config.model_path)
+            save_object(obj=best_model, file_path=self.model_trainer_config.model_path)
 
             return score, self.model_trainer_config.model_path
 
