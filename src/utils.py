@@ -87,7 +87,7 @@ def load_obj(obj_path):
     '''
     try:
         obj = None
-        with open(obj_path) as file:
+        with open(obj_path, "rb") as file:
             obj = pickle.load(file)
         return obj
     except Exception as e:

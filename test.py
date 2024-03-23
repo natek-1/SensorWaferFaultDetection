@@ -5,6 +5,7 @@ from src.utils import import_collection_as_dataframe
 from src.constants import *
 import os
 import sys
+from src.pipeline.training_pipeline import TrainPipeline
 
 
 #load_dotenv()
@@ -20,3 +21,6 @@ import sys
 
 
 
+pipeline = TrainPipeline()
+score = pipeline.run_pipeline()
+print(score)

@@ -26,16 +26,21 @@ from src.logger import logging
 class ModelTrainerConfig:
     model_path = os.path.join("artifacts", "model.pkl")
 
-class CustomeModel():
+class CustomModel:
     def __init__(self, preprocessor, model):
         self.preprocessor = preprocessor
         self.model = model
     
     def predict(self, X):
         preprocessed_data = self.preprocessor.predict(X)
-        
-        return self.trained_model_object.predict(transformed_feature)
-    pass
+
+        return self.trained_model_object.predict(preprocessed_data)
+    
+    def __repr__(self):
+        return f"{type(self.trained_model_object).__name__}()"
+
+    def __str__(self):
+        return f"{type(self.trained_model_object).__name__}()"
 
 
 class ModelTrainer:
@@ -43,7 +48,7 @@ class ModelTrainer:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
     
-    def initiate_model_training(self, X_train, X_test, y_train, y_test):
+    def initiate_model_training(self, X_train, X_test, y_train, y_test, preprocessor_path):
         try:
             logging.info("starting the model training step")
 
@@ -77,13 +82,21 @@ class ModelTrainer:
 
             best_model.fit(X_train, y_train)
 
+
             y_pred = best_model.predict(X_test)
 
             score = r2_score(y_test, y_pred)
 
             logging.info(f"testing the model on the full train dataset gives a score of {score}")
 
-            save_object(obj=best_model, file_path=self.model_trainer_config.model_path)
+            preprocessing_obj = load_obj(preprocessor_path)
+
+            custom_model = CustomModel(
+                preprocessor=preprocessing_obj,
+                model=best_model,
+            )
+
+            save_object(obj=custom_model, file_path=self.model_trainer_config.model_path)
 
             return score, self.model_trainer_config.model_path
 
