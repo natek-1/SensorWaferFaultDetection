@@ -50,41 +50,14 @@ class DataTransformer():
             error = CustomException(e, sys)
             logging.error(error)
             raise error
-    
-    @staticmethod
-    def column_with_no_sd(df: pd.DataFrame):
-        """
-        Returns a list of columns names who are having zero standard deviation.
-        """
-        column_names = []
-        #find numeric columns
-        num_column = [col for col in df.columns if df[col].dtype != 'O']
-        for col in num_column:
-            if df[col].std() == 0:
-                column_names.append(col)
-        return column_names
-    
-    @staticmethod
-    def get_redundant_cols(df: pd.DataFrame, missing_thresh=0.7):
-        """
-        Returns a list of columns having missing values more than certain thresh.
-        """
-        # empty value threshold
-        ratio_per_col = df.isna().sum().div(df.shape[0])
-        redundant_cols = list(ratio_per_col[ratio_per_col > missing_thresh].index)
-        return redundant_cols
+
     
     def initiate_data_transformation(self, data_path):
         try:
             logging.info("initiating data transformation")
             raw_df = pd.read_csv(data_path)
 
-            # drop useless columns (feature selection)
-            redundant_cols = DataTransformer.get_redundant_cols(raw_df)
-            no_std_cols = DataTransformer.column_with_no_sd(raw_df)
-
-            cols_to_drop =  no_std_cols  + redundant_cols
-            cols_to_drop.append('Unnamed: 0')
+            cols_to_drop = ['Unnamed: 0']
             #print(cols_to_drop)
 
             X, y = raw_df.drop(columns=cols_to_drop, axis=1).iloc[:,:-1], raw_df.iloc[:,-1]
@@ -98,7 +71,8 @@ class DataTransformer():
             preprocessor = self.get_transformation_object()
 
             X_trans = preprocessor.fit_transform(X)
-            target_column_mapping = {1: 0, -1: 1}
+            target_column_mapping = {1: 0,
+                                    -1: 1}
             y_trans = y.map(target_column_mapping)
             logging.info("transormed the elements in the dataset")
 
