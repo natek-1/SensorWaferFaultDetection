@@ -26,6 +26,17 @@ from src.logger import logging
 class ModelTrainerConfig:
     model_path = os.path.join("artifacts", "model.pkl")
 
+class CustomeModel():
+    def __init__(self, preprocessor, model):
+        self.preprocessor = preprocessor
+        self.model = model
+    
+    def predict(self, X):
+        preprocessed_data = self.preprocessor.predict(X)
+        
+        return self.trained_model_object.predict(transformed_feature)
+    pass
+
 
 class ModelTrainer:
 
