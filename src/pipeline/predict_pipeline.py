@@ -20,7 +20,7 @@ class PredictPipelineConfig:
     model_file_path :str = os.path.join(ARTIFACTS_DIR, "model.pkl")
     preprocessor_file_path: str = os.path.join(ARTIFACTS_DIR, "preprocessor.pkl")
 
-    prediction_file_path = os.path.join(predicted_output_dirname. prediction_filename)
+    prediction_file_path = os.path.join(predicted_output_dirname, prediction_filename)
 
 class PredictionPipeline:
 
@@ -35,7 +35,7 @@ class PredictionPipeline:
             os.makedirs(pred_file_input_dir, exist_ok=True)
 
             input_csv_file = self.request.files["file"]
-            pred_file_path = os.path.join(pred_file_input_dir, input_csv_file)
+            pred_file_path = os.path.join(pred_file_input_dir, input_csv_file.filename)
 
             input_csv_file.save(pred_file_path)
 
@@ -51,7 +51,7 @@ class PredictionPipeline:
             model = load_obj(self.prediction_pipeline_config.model_file_path)
 
             preprocessor = load_obj(obj_path=self.prediction_pipeline_config.preprocessor_file_path)
-
+            
             transformed_x = preprocessor.transform(features)
             preds = model.predict(transformed_x)
 
@@ -67,6 +67,7 @@ class PredictionPipeline:
             input_dataframe: pd.DataFrame = pd.read_csv(input_data_frame_path)
 
             input_dataframe =  input_dataframe.drop(columns="Unnamed: 0") if "Unnamed: 0" in input_dataframe.columns else input_dataframe
+            input_dataframe =  input_dataframe.drop(columns="Good/Bad") if "Good/Bad" in input_dataframe.columns else input_dataframe
 
             predictions = self.predict(input_dataframe)
 

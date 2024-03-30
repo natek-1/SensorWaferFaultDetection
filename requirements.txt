@@ -27,4 +27,5 @@ matplotlib==3.7.0
 ipykernel==6.23.1
 imbalanced-learn
 python-dotenv
+Werkzeug==2.2.2 
 -e .
