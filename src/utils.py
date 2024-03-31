@@ -24,8 +24,8 @@ def import_collection_as_dataframe(db_name, collection_name):
         url = os.getenv("MONGO_DB_LINK")
 
         client = MongoClient(url, server_api=ServerApi('1'))
-        client.admin.command('ping')
-        logging.info("Pinged your deployment. You successfully connected to MongoDB!")
+        #client.admin.command('ping')
+        #logging.info("Pinged your deployment. You successfully connected to MongoDB!")
 
         collection = client[db_name][collection_name] 
         df = pd.DataFrame(list(collection.find()))
