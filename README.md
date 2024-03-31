@@ -33,6 +33,6 @@ python app.py
 - Scikit learn
 - Numpy
 - Matploblib
-- Seabornenv
+- Seaborn
 
 
