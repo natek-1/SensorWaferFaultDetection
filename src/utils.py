@@ -23,7 +23,7 @@ def import_collection_as_dataframe(db_name, collection_name):
         load_dotenv()
         url = os.getenv("MONGO_DB_LINK")
 
-        client = MongoClient(url, server_api=ServerApi('1'))
+        client = MongoClient(url)
         #client.admin.command('ping')
         #logging.info("Pinged your deployment. You successfully connected to MongoDB!")
 
