@@ -6,25 +6,27 @@ Brief: In electronics, a wafer (also called a slice or substrate) is a thin slic
 
 It undergoes many microfabrication processes, such as doping, ion implantation, etching, thin-film deposition of various materials, and photolithographic patterning. Finally, the individual microcircuits are separated by wafer dicing and packaged as an integrated circuit.
 
-Dataset is taken from Kaggle and stored in mongodb
+Dataset is taken from Kaggle and stored in mongodb on atlas
 
 
 1. Setup an enviroment on local machine to run project
-```
+```bash
 conda create -p env python=3.8 -y
 ```
 2. Activate enviroment
-```
+```bash
 conda activate ./env/
 ```
 3. Install requirments as setup
-```
+```bash
 pip install -r requirements.txt
 ```
 4. Run application
-```
+```bash
 python app.py
 ```
+you should be able to find it at : http://localhost:8080
+
 
 🔧 Built with
 - Flask
