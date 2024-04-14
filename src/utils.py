@@ -21,7 +21,7 @@ def import_collection_as_dataframe(db_name, collection_name):
 
     try:
         load_dotenv()
-        url = "mongodb+srv://natek:natek@learn.fz36e1j.mongodb.net/?retryWrites=true&w=majority&appName=Learn" #os.getenv("MONGO_DB_LINK")
+        url = os.getenv("MONGO_DB_LINK")
 
         client = MongoClient(url)
         client.admin.command('ping')
